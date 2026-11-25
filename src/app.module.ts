@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { getGraphQLConfig } from './config/graphql.config.js';
 import { ApolloDriver } from '@nestjs/apollo';
+import { AuthModule } from './auth/auth.module.js';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ApolloDriver } from '@nestjs/apollo';
       useFactory: getGraphQLConfig,
     }),
     PrismaModule,
+    AuthModule,
   ],
 })
 export class AppModule {}
