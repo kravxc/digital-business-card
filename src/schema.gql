@@ -2,58 +2,137 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type AuthModel {
-  accessToken: String!
-}
-
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
 
-input LoginInput {
-  email: String!
-  password: String!
+"""Модель опыта работы"""
+type ExperienceModel {
+  """Достижения"""
+  achievments: [String!]!
+
+  """Название компании"""
+  company: String!
+  createdAt: DateTime!
+
+  """Дата окончания"""
+  endDate: DateTime!
+  id: ID!
+
+  """Должность"""
+  position: String!
+
+  """ID профиля"""
+  profileId: String!
+
+  """Порядок сортировки"""
+  sortOrder: Int!
+
+  """Дата начала"""
+  startDate: DateTime!
+  updatedAt: DateTime!
 }
 
 type Mutation {
-  login(data: LoginInput!): AuthModel!
-  logout: Boolean!
-  refresh: AuthModel!
-  register(data: RegisterInput!): AuthModel!
+  """Обновить профиль"""
+  updateProfile(input: UpdateProfileInput!): ProfileModel!
+}
+
+"""Модель профиля"""
+type ProfileModel {
+  createdAt: DateTime!
+
+  """Описание профиля"""
+  description: String!
+
+  """Опыт работы"""
+  experience: [ExperienceModel!]
+
+  """Ссылка на GitHub"""
+  githubUrl: String
+  id: ID!
+
+  """Ссылка на LinkedIn"""
+  linkedinUrl: String
+
+  """Имя пользователя"""
+  name: String!
+
+  """Проекты"""
+  projects: [ProjectModel!]
+
+  """Навыки"""
+  skills: [SkillModel!]
+  updatedAt: DateTime!
+
+  """Ссылка на веб-сайт"""
+  websiteUrl: String
+}
+
+"""Модель проекта"""
+type ProjectModel {
+  createdAt: DateTime!
+
+  """Описание проекта"""
+  description: String
+  id: ID!
+
+  """Название проекта"""
+  name: String!
+
+  """ID профиля"""
+  profileId: String!
+
+  """URL репозитория"""
+  repoUrl: String!
+
+  """Порядок сортировки"""
+  sortOrder: Int!
+  updatedAt: DateTime!
+
+  """URL проекта"""
+  url: String
 }
 
 type Query {
-  getMe: UserModel!
-  getUsers: [UserModel!]!
+  """Получить профиль по ID"""
+  profile(id: String!): ProfileModel
 }
 
-input RegisterInput {
-  email: String!
-  name: String!
-  password: String!
-}
-
-"""Модель пользователя"""
-type UserModel {
+"""Модель навыка"""
+type SkillModel {
   createdAt: DateTime!
-
-  """Email пользователя"""
-  email: String
   id: ID!
+
+  """Название навыка"""
+  name: String!
+
+  """ID профиля"""
+  profileId: String!
+
+  """Порядок сортировки"""
+  sortOrder: Int!
+  updatedAt: DateTime!
+}
+
+"""Данные для обновления профиля"""
+input UpdateProfileInput {
+  """Описание профиля"""
+  description: String
+
+  """Ссылка на GitHub"""
+  githubUrl: String
+
+  """ID профиля"""
+  id: String!
+
+  """Ссылка на LinkedIn"""
+  linkedinUrl: String
 
   """Имя пользователя"""
   name: String
 
-  """Пароль пользователя"""
-  password: String
-
-  """Роль пользователя"""
-  role: UserRole
-  updatedAt: DateTime!
-}
-
-enum UserRole {
-  ADMIN
-  USER
+  """Ссылка на веб-сайт"""
+  websiteUrl: String
 }
