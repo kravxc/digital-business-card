@@ -7,10 +7,11 @@ export async function getGraphQLConfig(): Promise<ApolloDriverConfig> {
   return {
     driver: ApolloDriver,
     autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+    introspection: true,
     sortSchema: true,
-    playground: true,
+    playground: false,
     graphiql: false,
-    plugins: [ApolloServerPluginLandingPageLocalDefault()],
+    plugins: [ApolloServerPluginLandingPageLocalDefault({ embed: true })],
     context: ({ req, res }: { req: Request; res: Response }) => ({ req, res }),
   };
 }
