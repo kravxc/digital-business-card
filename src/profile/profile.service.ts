@@ -8,7 +8,7 @@ export class ProfileService {
   constructor(private readonly prisma: PrismaService) {}
 
   async getSingleton() {
-    return this.prisma.profile.findFirst({
+    return await this.prisma.profile.findFirst({
       include: { skills: true, experience: true, projects: true },
     });
   }
