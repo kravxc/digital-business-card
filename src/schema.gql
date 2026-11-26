@@ -96,8 +96,8 @@ type ProjectModel {
 }
 
 type Query {
-  """Получить профиль по ID"""
-  profile(id: String!): ProfileModel
+  """Получить профиль"""
+  getProfile: ProfileModel!
 }
 
 """Модель навыка"""
