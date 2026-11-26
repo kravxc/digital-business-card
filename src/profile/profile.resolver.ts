@@ -1,20 +1,22 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { UseGuards } from '@nestjs/common';
+import { NotFoundException, UseGuards } from '@nestjs/common';
 import { ProfileService } from './profile.service.js';
 import { ProfileModel } from './models/profile.model.js';
 import { UpdateProfileInput } from './inputs/update-profile.input.js';
 import { ApiKeyGuard } from '../auth/guards/api-key.guard.js';
+import { NotFoundError } from 'rxjs';
 
 @Resolver(() => ProfileModel)
 export class ProfileResolver {
   constructor(private readonly profileService: ProfileService) {}
 
   @Query(() => ProfileModel, {
-    description: 'Получить профиль по ID',
-    nullable: true,
+    description: 'Получить профиль',
   })
-  async profile(@Args('id') id: string) {
-    return this.profileService.getProfile(id);
+  async getProfile() {
+    const profile = await this.profileService.getSingleton();
+    if (!profile) throw new NotFoundException('Profile not initialized');
+    return profile;
   }
 
   @UseGuards(ApiKeyGuard)
