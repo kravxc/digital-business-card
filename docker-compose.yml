@@ -22,7 +22,7 @@ services:
     environment:
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/digital-business-card
       PORT: 3000
-      ADMIN_API_KEY: change_me
+      ADMIN_API_KEY: 54a3299f066b30b719a57080f6fb73efb1a0628ed8ec71c5
     depends_on:
       postgres:
         condition: service_healthy

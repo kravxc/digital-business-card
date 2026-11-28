@@ -4,7 +4,6 @@ import { ProfileService } from './profile.service.js';
 import { ProfileModel } from './models/profile.model.js';
 import { UpdateProfileInput } from './inputs/update-profile.input.js';
 import { ApiKeyGuard } from '../auth/guards/api-key.guard.js';
-import { NotFoundError } from 'rxjs';
 
 @Resolver(() => ProfileModel)
 export class ProfileResolver {
@@ -22,6 +21,6 @@ export class ProfileResolver {
   @UseGuards(ApiKeyGuard)
   @Mutation(() => ProfileModel, { description: 'Обновить профиль' })
   async updateProfile(@Args('input') input: UpdateProfileInput) {
-    return this.profileService.update(input);
+    return await this.profileService.update(input);
   }
 }
