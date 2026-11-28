@@ -2,7 +2,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { UpdateProfileInput } from './inputs/update-profile.input.js';
 import { Prisma } from '@prisma/client';
-
 @Injectable()
 export class ProfileService {
   constructor(private readonly prisma: PrismaService) {}
